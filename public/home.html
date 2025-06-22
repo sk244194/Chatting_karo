@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatting Karo</title>
+</head>
+<body>
+    <h1>Chatting Karo</h1>
+
+    <h2>Start Chatting</h2>
+    <button onclick="createConnection()">Create Connection</button>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <P></P>
+    <input type="text" id="message" placeholder="User Message">
+    <button id="sendbtn">Send</button>
+
+    <script>
+        function createConnection(){
+            const socket = io()
+            const messageInput = document.getElementById('message');
+            const sendbtn = document.getElementById('sendbtn')
+
+            sendbtn.addEventListener("click", (e) => {
+                const message = messageInput.value;
+                console.log(message);
+                socket.emit("socket-message", message);
+            })
+
+            socket.on('message', message => {
+                console.log(message)
+            })
+        }
+    </script>
+
+    
+    
+</body>
+</html>
